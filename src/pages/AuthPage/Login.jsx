@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux"
 import { Navigate, useNavigate } from 'react-router-dom'
 import { setLoggedInUser } from '../../redux/userSlice'
+import { toast } from "react-toastify"
 
 
 const Login = () => {
@@ -19,8 +20,15 @@ const Login = () => {
     const { loggedInUser } = useSelector(store => store.user)
 
     const onSubmit = async (data) => {
-        const res = await axios.post(`/user/login`, data)
-        dispatch(setLoggedInUser(res.data.data))
+
+        try {
+            const res = await axios.post(`/user/login`, data)
+            dispatch(setLoggedInUser(res.data.data))
+        } catch (error) {
+            console.log(error);
+            toast("INVALID CREDENTIALS")
+        }
+
     }
 
     return (
