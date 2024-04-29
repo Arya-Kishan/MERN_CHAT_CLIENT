@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { Navigate, useNavigate } from 'react-router-dom'
 import { setLoggedInUser } from '../../redux/userSlice'
 import { toast } from "react-toastify"
+import { IoLogoSnapchat } from "react-icons/io";
 
 
 const Login = () => {
@@ -32,12 +33,15 @@ const Login = () => {
     }
 
     return (
-        <div className='flex flex-col justify-center items-center p-2'>
+        <div className='flex flex-col justify-center items-center p-2 h-dvh'>
+
             {loggedInUser && <Navigate to='/' />}
+
+            <IoLogoSnapchat className='text-6xl my-10'/>
 
             <h1 className='text-4xl'>LOGIN</h1>
 
-            <form onSubmit={handleSubmit(onSubmit)} className='w-[80%] flex flex-col gap-5'>
+            <form onSubmit={handleSubmit(onSubmit)} className='w-[80%] md:w-[30%] flex flex-col gap-5'>
 
                 {/* USERNAME */}
                 <div className='flex flex-col gap-1'>
@@ -92,7 +96,7 @@ const Login = () => {
 
             </form>
 
-            <p onClick={() => navigate("/signup")}>Not a user, <span className='text-teal-500'>Sign Up</span></p>
+            <p onClick={() => navigate("/signup")} className='mt-2'>Not a user, <span className='text-teal-500'>Sign Up</span></p>
 
         </div>
     )

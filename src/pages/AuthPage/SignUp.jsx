@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import axios from "axios";
 import { useForm } from "react-hook-form"
-import {useSelector, useDispatch} from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { setLoggedInUser } from '../../redux/userSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { IoLogoSnapchat } from "react-icons/io";
 
 
 const SignUp = () => {
@@ -17,11 +18,11 @@ const SignUp = () => {
     // const {value} = useSelector(store=>store.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-  const { loggedInUser } = useSelector(store => store.user)
+    const { loggedInUser } = useSelector(store => store.user)
 
 
-    const onSubmit = async(data) => {
-        const res = await axios.post(`/user/register`,data)
+    const onSubmit = async (data) => {
+        const res = await axios.post(`/user/register`, data)
         console.log(res);
         dispatch(setLoggedInUser(res.data.data))
     }
@@ -30,9 +31,12 @@ const SignUp = () => {
         <div className='flex flex-col justify-center items-center p-2'>
             {loggedInUser && <Navigate to='/' />}
 
+            <IoLogoSnapchat className='text-6xl my-10' />
+
+
             <h1 className='text-4xl'>SIGN UP</h1>
 
-            <form onSubmit={handleSubmit(onSubmit)} className='w-[80%] flex flex-col gap-5 m-2'>
+            <form onSubmit={handleSubmit(onSubmit)} className='w-[80%] md:w-[30%] flex flex-col gap-5 m-2'>
 
                 {/* USERNAME */}
                 <div className='flex flex-col gap-1'>
@@ -116,7 +120,7 @@ const SignUp = () => {
 
             </form>
 
-            <p onClick={()=>navigate("/login")}>Already a user, <span className='text-teal-500'>Login</span></p>
+            <p onClick={() => navigate("/login")} className='mt-2'>Already a user, <span className='text-teal-500'>Login</span></p>
 
         </div>
     )

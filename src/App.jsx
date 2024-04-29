@@ -6,18 +6,20 @@ import SignUp from './pages/AuthPage/SignUp'
 import { useSelector, useDispatch } from "react-redux"
 import Protected from './pages/Protected'
 import io from "socket.io-client"
-import { setSocket } from './redux/socketSlice'
+import { setOnlineUsers, setSocket } from './redux/socketSlice'
 import axios from 'axios'
+export let globalSocket;
 
 const App = () => {
 
-  axios.defaults.baseURL = ("https://mern-chat-server-mbzu.onrender.com/api/v1")
-  const baseUrl = "https://mern-chat-server-mbzu.onrender.com"
+  // axios.defaults.baseURL = ("https://mern-chat-server-mbzu.onrender.com/api/v1")
+  // const baseUrl = "https://mern-chat-server-mbzu.onrender.com"
 
-  // axios.defaults.baseURL = ("http://localhost:8080/api/v1")
-  // const baseUrl = "http://localhost:8080"
+  axios.defaults.baseURL = ("http://localhost:8080/api/v1")
+  const baseUrl = "http://localhost:8080"
 
   const { loggedInUser } = useSelector(store => store.user)
+  const { messages } = useSelector(store => store.message)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -29,7 +31,13 @@ const App = () => {
         }
       });
 
-      dispatch(setSocket(socket))
+      globalSocket = socket;
+
+      // dispatch(setSocket(socket))
+
+      socket?.on('onlineUsers', (onlineUsers) => {
+        dispatch(setOnlineUsers(onlineUsers))
+      });
 
       return () => socket.close();
 
