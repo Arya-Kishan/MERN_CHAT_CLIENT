@@ -1,14 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { searchUserAsync } from '../../redux/userSlice'
 import { debounce } from 'lodash'
+import { createGroupAsync, setUserGroup } from '../../redux/groupSlice'
 import axios from 'axios'
 
 const CreateGroup = ({ setShowCreateGroup }) => {
 
     const { loggedInUser } = useSelector(store => store.user)
     const { searchUserResult } = useSelector(store => store.user)
+    const { userGroups } = useSelector(store => store.group)
     const [userArr, setUserArr] = useState([])
     const [selectedUserArr, setSelectedUserArr] = useState([])
     const dispatch = useDispatch()
@@ -33,15 +34,17 @@ const CreateGroup = ({ setShowCreateGroup }) => {
 
     const createGroup = async () => {
 
-        console.log(inputRef1.current.value);
+        // console.log(inputRef1.current.value);
         let selectedUser_Arr_id = selectedUserArr.map((e) => (e._id))
-        console.log(selectedUser_Arr_id);
+        // console.log(selectedUser_Arr_id);
 
-        const res = await axios.post(`http://localhost:8080/api/v1/group/create`, {
-            groupName: inputRef1.current.value,
-            groupCreatedBy: loggedInUser._id,
-            groupMembers: JSON.stringify(selectedUser_Arr_id)
-        })
+        dispatch(createGroupAsync({
+            query: {
+                groupName: inputRef1.current.value,
+                groupCreatedBy: loggedInUser._id,
+                groupMembers: JSON.stringify(selectedUser_Arr_id)
+            }
+        }))
 
         setShowCreateGroup(false)
 

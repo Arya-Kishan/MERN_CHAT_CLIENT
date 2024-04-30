@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoggedInUser } from '../../redux/userSlice'
 import CreateGroup from './CreateGroup'
+import { IoLogoSnapchat } from "react-icons/io";
 
 const MainHeading = () => {
 
@@ -15,9 +16,11 @@ const MainHeading = () => {
     return (
         <div className='w-full h-full flex justify-between items-center p-2 bg-slate-800'>
 
-            <h1 className='text-2xl'>CHAT APP</h1>
-
-            <img onClick={() => setShowProfile(true)} className='w-[40px] h-[40px]' src={loggedInUser.profilePic} alt="" srcSet="" />
+            <div className='flex gap-2 items-center'>
+                <IoLogoSnapchat className='text-3xl'/>
+                <h1 className='text-2xl font-bold'>CHAT APP</h1>
+            </div>
+            <img onClick={() => setShowProfile(true)} className='w-[35px] h-[35px]' src={loggedInUser.profilePic} alt="" srcSet="" />
 
             {showProfile && <div onClick={() => setShowProfile(false)} className='w-full h-full absolute top-0 right-0 z-10'>
 
