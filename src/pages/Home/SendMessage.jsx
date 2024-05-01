@@ -12,6 +12,7 @@ const SendMessage = () => {
     const { selectedGroup } = useSelector(store => store.group)
     const { loggedInUserId } = useSelector(store => store.user)
     const { selectedUser } = useSelector(store => store.user)
+    const { onlineUsers } = useSelector(store => store.socket)
     const { notifications } = useSelector(store => store.message)
     const { messages } = useSelector(store => store.message)
     const dispatch = useDispatch()
@@ -27,6 +28,22 @@ const SendMessage = () => {
             })
 
             dispatch(setMessages([...messages || [], data.data]))
+
+            // IF USER IS OFFLINE SAVING THE MESSAGE IN BACKEND FOR UNSEEN MESSAGE NOTIFICATION AND IF ONLINE THEN NOT SAVING IN BACKEND
+            if (onlineUsers?.includes(selectedUser._id)) {
+                console.log("USER IS ONLINE NOT SAVING THE MESSAGE IN BACKEND");
+            } else {
+                console.log("USER IS OFFLINE SAVING THE MESSAGE IN BACKEND FOR UNSEEN MESSAGE NOTIFICATION");
+                let { data } = axios.post(`/message/unseenMessages?type=add`, {
+                    senderId: loggedInUserId,
+                    receiverId: selectedUser._id,
+                    message: inputRef.current.value
+                })
+
+                console.log(data);
+
+            }
+
 
         } else {
 
@@ -49,16 +66,15 @@ const SendMessage = () => {
 
         globalSocket?.on("newMessage", (newMessage) => {
             console.log(newMessage);
-            // console.log(selectedUser._id);
-            // console.log(newMessage.receiverId);
             if (selectedUser._id == newMessage.senderId) {
                 console.log("USER VIWING THE CHAT OF SENDING USER SO DON'T SAVE IT AS NOTIFICATION");
                 dispatch(setMessages([...messages || [], newMessage]));
             } else {
-                console.log("USER HAS SELECTED AND VIEWING OTHER USER NOW THAT'S Y HAVE TO SAVE AS NOTIFICATION");
+                console.log("USER HAS SELECTED AND VIEWING OTHER USER NOW THAT'S Y HAVE TO SAVE AS NOTIFICATION AND SHOW AS UNSEEN MESSAGE POP UP");
                 console.log(notifications);
                 dispatch(addNotifications(newMessage))
             }
+
         });
 
 
@@ -79,8 +95,8 @@ const SendMessage = () => {
     return (
         <div className='p-2 bg-slate-600'>
             <div className='flex items-center bg-white rounded-lg'>
-                <input ref={inputRef} onKeyUp={(e) => { e.key == "Enter" ? handleSendMessage() : null }} className='w-[90%] p-1 text-black rounded-lg border-none outline-none' type="text" placeholder='Type a message here...' />
-                <IoIosSend onClick={() => handleSendMessage()} className='text-3xl text-slate-900 cursor-pointer ' />
+                <input ref={inputRef} onKeyUp={(e) => { e.key == "Enter" ? handleSendMessage() : null }} className='w-full p-1 text-black rounded-lg border-none outline-none' type="text" placeholder='Type a message here...' />
+                <IoIosSend onClick={() => handleSendMessage()} className='text-3xl text-slate-900 cursor-pointer pr-2' />
             </div>
         </div>
     )

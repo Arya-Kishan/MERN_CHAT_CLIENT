@@ -2,12 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 const initialState = {
-  value: "arya",
-  loggedInUser:null,
-  loggedInUserId:null,
-  otherUsers:null,
-  selectedUser:null,
-  searchUserResult:[],
+  loggedInUser: null,
+  loggedInUserId: null,
+  selectedUser: null,
+  searchUserResult: { loader: "idle", data: [] },
+  friends: [],
 }
 
 
@@ -29,32 +28,34 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setLoggedInUser: (state,action) => {
+    setLoggedInUser: (state, action) => {
       state.loggedInUser = action.payload,
-      state.loggedInUserId = action.payload?._id
+        state.loggedInUserId = action.payload?._id
     },
-    setOtherUsers: (state,action) => {
-      // SHOW OTHERS USER WITHOUT THE LOGGED IN USER
-      state.otherUsers = action.payload.filter((e)=>e._id != state.loggedInUserId)
-    },
-    setSelectedUser: (state,action) => {
+    setSelectedUser: (state, action) => {
       state.selectedUser = action.payload
+    },
+    setSearchUserResult: (state, action) => {
+      state.searchUserResult = action.payload
+    },
+    addFriends: (state, action) => {
+      state.loggedInUser.friends.push(action.payload)
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(searchUserAsync.pending, (state) => {
-        state.searchUserResult = [];
+        state.searchUserResult = { loader: "loading", data: [] };
       })
       .addCase(searchUserAsync.fulfilled, (state, action) => {
-        state.searchUserResult = action.payload;
+        state.searchUserResult = { loader: "idle", data: action.payload };
       })
       .addCase(searchUserAsync.rejected, (state, action) => {
-        state.searchUserResult = [];
+        state.searchUserResult = { loader: "idle", data: [] };
       })
   },
 })
 
-export const { setLoggedInUser, setOtherUsers, setSelectedUser } = userSlice.actions
+export const { setLoggedInUser, setSelectedUser, addFriends, setSearchUserResult } = userSlice.actions
 
 export default userSlice.reducer

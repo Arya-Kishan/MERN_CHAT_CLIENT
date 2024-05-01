@@ -51,7 +51,7 @@ const CreateGroup = ({ setShowCreateGroup }) => {
     }
 
     useEffect(() => {
-        setUserArr(searchUserResult)
+        setUserArr(searchUserResult.data)
     }, [searchUserResult])
 
 
@@ -78,12 +78,12 @@ const CreateGroup = ({ setShowCreateGroup }) => {
                     <input onChange={searchUser} type="text" className='border-none outline-none text-black rounded-md p-2' placeholder='Add Member...' />
 
                     {/* SEARCH USER RESULT */}
-                    <div className='overflow-scroll h-[40vh] bg-black flex flex-col gap-2 p-2 rounded-lg'>
+                    <div className='overflow-y-scroll h-[40vh] bg-black flex flex-col gap-2 p-2 rounded-lg'>
                         {userArr?.map((e) => (<div onClick={() => selectAddingUser(e)} key={e._id} className='p-2 bg-slate-800 rounded-lg'>{e.userName}</div>))}
                     </div>
 
                     <div className='text-end p-2'>
-                        <span onClick={createGroup} className='bg-slate-500 p-2 rounded-lg font-semibold'>Create Chat</span>
+                        <button onClick={createGroup} className='bg-slate-800 p-2 rounded-lg font-semibold border-2 border-solid border-white hover:bg-slate-400 hover:border-black cursor-pointer'>CREATE</button>
                     </div>
 
                 </div>

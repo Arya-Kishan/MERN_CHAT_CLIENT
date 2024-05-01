@@ -4,14 +4,13 @@ import { setMessages } from '../../redux/messageSlice'
 import axios from 'axios'
 import { setSelectedGroup } from '../../redux/groupSlice'
 import { setSelectedUser } from '../../redux/userSlice'
+import dayjs from "dayjs"
 
 const Messages = () => {
 
     const dispatch = useDispatch()
     const { messages } = useSelector(store => store.message)
     const { selectedGroup } = useSelector(store => store.group)
-    const { chatType } = useSelector(store => store.group)
-    const { otherUsers } = useSelector(store => store.user)
     const { loggedInUserId } = useSelector(store => store.user)
     const { selectedUser } = useSelector(store => store.user)
 
@@ -56,12 +55,6 @@ const Messages = () => {
 
     }
 
-    const getUserNameByUserId = (userId) => {
-        let userObj = otherUsers.filter((e) => e._id == userId);
-        console.log(userObj[0]?.userName);
-        return userObj[0]?.userName;
-    }
-
     useEffect(() => {
 
         console.log("FETCHING SOLO CHAT");
@@ -95,10 +88,11 @@ const Messages = () => {
             {messages?.length > 0
                 ?
                 messages.map((e) => (
-                    <div ref={lastDivref} key={e._id} className={`w-full flex ${loggedInUserId == e.senderId ? "justify-end" : "justify-start"}`}>
+                    <div ref={lastDivref} key={e._id} className={`w-full flex ${loggedInUserId == (selectedGroup ? e.senderId._id : e.senderId) ? "justify-end" : "justify-start"}`}>
                         <p className='flex flex-col w-[50%] bg-slate-900 rounded-lg p-2'>
-                            <span className='text-[10px] text-slate-400 capitalize'>{selectedGroup && getUserNameByUserId(e.senderId)}</span>
+                            <span className='text-[10px] text-slate-400 capitalize'>{selectedGroup && e.senderId.userName}</span>
                             <span>{e.message}</span>
+                            <span className='text-[10px] text-end text-slate-400'>{dayjs(e.createdAt).format("hh:mm a")}</span>
                         </p>
                     </div>
                 ))

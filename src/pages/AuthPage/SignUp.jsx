@@ -51,7 +51,7 @@ const SignUp = () => {
                                 message: 'NAME IS REQUIRED'
                             },
                             minLength: {
-                                value: 5,
+                                value: 3,
                                 message: 'NAME MUST GREATER THAN 5 CHARACTERS'
                             },
                         })}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import OtherUsers from './OtherUsers'
 import ChatHeading from './ChatHeading'
@@ -7,8 +7,7 @@ import SendMessage from './SendMessage'
 import MainHeading from './MainHeading'
 import { Navigate } from 'react-router-dom'
 import { setSlideRightSide } from '../../redux/messageSlice'
-
-const otherUsers = [{ name: "Nidhi" }, { name: "Vishwa" }, { name: "Anand" }]
+import axios from 'axios'
 
 const Home = () => {
 
@@ -18,24 +17,26 @@ const Home = () => {
   const { loggedInUser } = useSelector(store => store.user)
   const { slideRightSide } = useSelector(store => store.message)
 
-  useEffect(()=>{
+  useEffect(() => {
 
     if (slideRightSide == "left-full") {
-      
-    }else{
-      history.pushState({},"otherUser")
+
+    } else {
+      history.pushState({}, "otherUser")
     }
 
-  },[slideRightSide])
+  }, [slideRightSide])
 
-  useEffect(()=>{
 
-    window.onpopstate = function(event) {
+  useEffect(() => {
+
+    window.onpopstate = function (event) {
       // Do something when the user clicks the back button
       dispatch(setSlideRightSide("left-full"))
     };
 
-  },[])
+
+  }, [])
 
   return (
     <div className='w-full h-dvh flex flex-col justify-center items-center gap-1'>
