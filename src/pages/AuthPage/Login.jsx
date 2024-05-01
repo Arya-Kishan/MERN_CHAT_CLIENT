@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from "react-hook-form"
 import axios from 'axios'
 import { useSelector, useDispatch } from "react-redux"
@@ -6,6 +6,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { setLoggedInUser } from '../../redux/userSlice'
 import { toast } from "react-toastify"
 import { IoLogoSnapchat } from "react-icons/io";
+import loader from "../../assets/loader.svg"
 
 
 const Login = () => {
@@ -18,14 +19,21 @@ const Login = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const { loggedInUser } = useSelector(store => store.user)
 
+    const [loginLoader, setLoginLoader] = useState(false)
+
     const onSubmit = async (data) => {
+
+        setLoginLoader(true)
 
         try {
             const res = await axios.post(`/user/login`, data)
             dispatch(setLoggedInUser(res.data.data))
+            setLoginLoader(false)
         } catch (error) {
+            setLoginLoader(false)
             console.log(error);
             toast("INVALID CREDENTIALS")
         }
@@ -33,11 +41,11 @@ const Login = () => {
     }
 
     return (
-        <div className='flex flex-col justify-center items-center p-2 h-dvh'>
+        <div className='flex flex-col justify-center items-center p-2 h-dvh relative'>
 
             {loggedInUser && <Navigate to='/' />}
 
-            <IoLogoSnapchat className='text-6xl my-10'/>
+            <IoLogoSnapchat className='text-6xl my-10' />
 
             <h1 className='text-4xl'>LOGIN</h1>
 
@@ -97,6 +105,11 @@ const Login = () => {
             </form>
 
             <p onClick={() => navigate("/signup")} className='mt-2'>Not a user, <span className='text-teal-500'>Sign Up</span></p>
+
+
+            {loginLoader && <img className='w-[40px] absolute top-[10%] left-[50%] -translate-x-[50%] -translate-y-[50%]' src={loader} alt="" srcset="" />}
+
+
 
         </div>
     )
