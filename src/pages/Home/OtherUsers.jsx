@@ -149,10 +149,12 @@ const OtherUsers = () => {
             setShowSearch(false)
             dispatch(addFriends(res?.data?.data))
             inputRef.current.value = "";
+            setShowOtherUserProfile({ user: null, show: false })
             toast("Added")
         } else {
             toast("Error Occured")
         }
+
 
         console.log(res.data.data);
 
