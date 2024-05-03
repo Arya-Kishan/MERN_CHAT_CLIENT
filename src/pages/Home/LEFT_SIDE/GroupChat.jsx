@@ -1,15 +1,22 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { setChatType, setSelectedGroup, setUserGroup } from '../../../redux/groupSlice'
-import { setLoggedInUser } from '../../../redux/userSlice'
 import { setMessages, setSlideRightSide } from '../../../redux/messageSlice'
+import { globalSocket } from '../../../App'
+import { MdGroups } from "react-icons/md";
+import { useDispatch, useSelector } from 'react-redux'
 
 const GroupChat = () => {
 
     const { userGroups } = useSelector(store => store.group)
+    const { selectedGroup } = useSelector(store => store.group)
+    const { loggedInUser } = useSelector(store => store.user)
+
+    const dispatch = useDispatch()
+
 
     const getUserGroups = async () => {
-        const { data } = await axios(`/group/getUserGroups?userId=${setLoggedInUser._id}`)
+        const { data } = await axios(`/group/getUserGroups?userId=${loggedInUser._id}`)
         // console.log(data.data);
         dispatch(setUserGroup(data?.data))
 
@@ -37,6 +44,9 @@ const GroupChat = () => {
 
     return (
         <>
+
+            <h1 className='text-3xl'>GROUP CHAT</h1>
+
             <div className='flex flex-col gap-2'>
                 {
                     userGroups?.map((elem) => (

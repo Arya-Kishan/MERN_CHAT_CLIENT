@@ -38,23 +38,23 @@ const Home = () => {
   }, [])
 
   return (
-    <div className='w-full h-dvh flex flex-col justify-center items-center gap-1'>
+    <div className='w-full h-dvh flex flex-col justify-center items-center gap-1 bg-slate-900'>
       {!loggedInUser && <Navigate to={"/login"} />}
 
       {/* MAIN HEADING */}
-      <div className='w-full h-[8%] sm:w-[80%] sm:h-[7%] bg-teal-300'><MainHeading /></div>
+      <div className='w-full h-[8%] md:w-[95%] md:h-[7%] bg-teal-300'><MainHeading /></div>
 
-      <div className='w-full h-[92%] sm:w-[80%] sm:h-[80%] flex gap-1'>
+      <div className='w-full h-[92%] md:w-[95%] md:h-[80%] flex'>
 
         {/* LEFT SIDE OTHER USERS */}
-        <div className='w-full sm:w-[30%] h-full'>
+        <div className='w-full md:w-[30%] h-full'>
 
           <OtherUsers />
 
         </div>
 
         {/* RIGHT SIDE MESSAGES CHAT */}
-        <div className={`fixed top-0 ${slideRightSide} transition-all ease-in-out duration-300 sm:static w-full h-full sm:w-[70%]`}>
+        <div className={`fixed top-0 ${slideRightSide} transition-all ease-in-out duration-300 md:static w-full h-full md:w-[70%] p-1 z-20`}>
           {selectedUser || selectedGroup
             ?
             <div className='w-full h-full flex flex-col'>
