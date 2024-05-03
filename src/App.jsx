@@ -8,15 +8,16 @@ import Protected from './pages/Protected'
 import io from "socket.io-client"
 import { setOnlineUsers, setSocket } from './redux/socketSlice'
 import axios from 'axios'
+import { setTypingLoader } from './redux/messageSlice'
 export let globalSocket;
 
 const App = () => {
 
-  axios.defaults.baseURL = ("https://mern-chat-server-mbzu.onrender.com/api/v1")
-  const baseUrl = "https://mern-chat-server-mbzu.onrender.com"
+  // axios.defaults.baseURL = ("https://mern-chat-server-mbzu.onrender.com/api/v1")
+  // const baseUrl = "https://mern-chat-server-mbzu.onrender.com"
 
-  // axios.defaults.baseURL = ("http://localhost:8080/api/v1")
-  // const baseUrl = "http://localhost:8080"
+  axios.defaults.baseURL = ("http://localhost:8080/api/v1")
+  const baseUrl = "http://localhost:8080"
 
   const { loggedInUser } = useSelector(store => store.user)
   const { messages } = useSelector(store => store.message)
@@ -37,6 +38,11 @@ const App = () => {
 
       socket?.on('onlineUsers', (onlineUsers) => {
         dispatch(setOnlineUsers(onlineUsers))
+      });
+
+      socket?.on('is-typing', (typingObj) => {
+        console.log(typingObj);
+        dispatch(setTypingLoader(typingObj))
       });
 
       return () => socket.close();

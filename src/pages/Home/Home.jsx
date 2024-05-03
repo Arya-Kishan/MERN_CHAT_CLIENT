@@ -7,7 +7,6 @@ import SendMessage from './SendMessage'
 import MainHeading from './MainHeading'
 import { Navigate } from 'react-router-dom'
 import { setSlideRightSide } from '../../redux/messageSlice'
-import axios from 'axios'
 
 const Home = () => {
 
@@ -45,7 +44,7 @@ const Home = () => {
       {/* MAIN HEADING */}
       <div className='w-full h-[8%] sm:w-[80%] sm:h-[7%] bg-teal-300'><MainHeading /></div>
 
-      <div className='w-full h-full sm:w-[80%] sm:h-[80%] flex gap-1'>
+      <div className='w-full h-[92%] sm:w-[80%] sm:h-[80%] flex gap-1'>
 
         {/* LEFT SIDE OTHER USERS */}
         <div className='w-full sm:w-[30%] h-full'>
@@ -75,7 +74,7 @@ const Home = () => {
 
               <img className='w-[80px]' src="https://avatar.iran.liara.run/public/boy" alt="" srcSet="" />
 
-              <p className='bg-slate-700 p-4'>Start Conversation</p>
+              <p className='bg-slate-700 p-4 rounded-lg'>Choose Conversation</p>
 
             </div>}
         </div>

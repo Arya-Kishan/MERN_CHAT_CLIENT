@@ -19,14 +19,17 @@ const ChatHeading = () => {
         <>
             {chatType == "solo"
                 ?
-                <div className='flex gap-2 items-center justify-between p-2 bg-slate-800'>
+                <div className='flex gap-2 items-center justify-between p-4 bg-slate-800'>
 
                     <div className='flex gap-2 items-center'>
-                        <img className='w-[40px]' src={selectedUser.profilePic} alt="" srcSet="" />
+
+                        <img className='w-[50px]' src={selectedUser.profilePic} alt="" srcSet="" />
+
                         <div>
-                            <p>{selectedUser.userName}</p>
-                            {onlineUsers?.includes(selectedUser._id) ? <span className='text-green-800 text-[12px]'>Active Now</span> : <p className='text-[12px]'>{dayjs().from(dayjs(selectedUser.active)).split(" ").slice(1).join(" ")} ago</p>}
+                            <p className='text-2xl'>{selectedUser.userName}</p>
+                            {onlineUsers?.includes(selectedUser._id) ? <span className='text-green-800 text-[14px]'>Active Now</span> : <p className='text-[14px]'>{dayjs().from(dayjs(selectedUser.active)).split(" ").slice(1).join(" ")} ago</p>}
                         </div>
+
                     </div>
 
                     <RiInformationLine onClick={() => setShowMembers(true)} className='text-xl text-slate-400' />

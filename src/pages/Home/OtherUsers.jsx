@@ -7,11 +7,12 @@ import { IoSearchSharp } from "react-icons/io5";
 import { setChatType, setSelectedGroup, setUserGroup } from '../../redux/groupSlice'
 import { MdGroups } from "react-icons/md";
 import { globalSocket } from '../../App'
-import { addNotifications, setNotifications, setSlideRightSide } from '../../redux/messageSlice'
+import { addNotifications, setMessages, setNotifications, setSlideRightSide } from '../../redux/messageSlice'
 import dayjs from 'dayjs'
 import relativeTime from "dayjs/plugin/relativeTime"
 import { FaUsersSlash, FaUsers } from "react-icons/fa6";
 import { toast } from 'react-toastify'
+import Navbar from './Navbar'
 
 const OtherUsers = () => {
 
@@ -41,9 +42,17 @@ const OtherUsers = () => {
     }
 
     const handleSelectedUser = (e) => {
+
+        // BELOW SOCKET USED TO MAKE USER LEAVE THE SOCKET GROUP
+        if (selectedGroup) {
+            console.log("MAKING USER LEAVE GROUP");
+            globalSocket.emit("leave-group", { userId: loggedInUser._id, groupId: selectedGroup._id })
+        }
+
         dispatch(setSelectedUser(e))
         dispatch(setChatType("solo"))
         dispatch(setSelectedGroup(null))
+        dispatch(setMessages([]))
 
         let notificationToDeleteFromBackend_Arr = notifications?.filter((elem) => (elem.senderId == e._id))
         console.log(notificationToDeleteFromBackend_Arr);
@@ -64,13 +73,12 @@ const OtherUsers = () => {
 
         deleteUnseenMessages()
 
-
-
     }
 
     const handleGroupSelected = (elem) => {
         dispatch(setSelectedGroup(elem))
         dispatch(setChatType("group"))
+        dispatch(setMessages([]))
         dispatch(setSlideRightSide("left-0"))
         // dispatch(setSelectedUser(null))
 
@@ -162,7 +170,7 @@ const OtherUsers = () => {
 
 
     return (
-        <div className='bg-slate-900 h-full p-2 overflow-auto flex flex-col justify-evenly items-center'>
+        <div className='bg-slate-900 h-full p-2 overflow-auto flex flex-col justify-evenly items-center relative'>
 
             {/* SEARCH USER */}
             <div ref={searchDivRef} className='w-full h-[7%] flex justify-between items-center p-2 gap-2 bg-white rounded-lg'>
@@ -171,93 +179,129 @@ const OtherUsers = () => {
             </div>
 
             {/* SHOWING SEARCH USER RESULT */}
-            {showSearch && <div className='w-full flex flex-col gap-2 p-2 h-[90%] overflow-y-scroll relative pt-5 bg-slate-500 rounded-xl'>
+            {showSearch &&
+                <div className='w-full flex flex-col gap-2 p-2 h-[90%] relative bg-slate-500 rounded-xl'>
 
-                {searchUserResult.loader == "loading" ? <div className='h-full flex items-center justify-center'>Loading...</div> : <>
-                    {searchUserResult.data.length > 0 ? <>
-                        {searchUserResult.data.map((e) => (
-                            <div key={e._id} onClick={() => setShowOtherUserProfile({ user: e, show: true })} className='flex gap-2 cursor-pointer'>
+                    {searchUserResult.loader == "loading"
+                        ?
+                        <div className='h-full flex items-center justify-center'>Loading...</div>
+                        :
+                        <>
+                            {searchUserResult.data.length > 0
+                                ?
+                                <div className='flex flex-col gap-2 overflow-y-scroll'>
+                                    {searchUserResult.data.map((e) => (
+                                        <div key={e._id} onClick={() => setShowOtherUserProfile({ user: e, show: true })} className='flex gap-2 cursor-pointer'>
 
-                                <img className='w-[40px] h-[40px]' src={e.profilePic} alt="" srcSet="" />
+                                            <img className='w-[40px] h-[40px]' src={e.profilePic} alt="" srcSet="" />
 
-                                <p className='capitalize'>{e.userName}</p>
+                                            <p className='capitalize'>{e.userName}</p>
 
-                            </div>
-                        ))}
-                    </> : <div className='h-full flex items-center justify-center'>NO USER FOUND "{inputRef.current.value}"</div>}
-                </>}
+                                        </div>
+                                    ))}
+                                </div>
+                                :
+                                <div className='h-full flex items-center justify-center'>NO USER FOUND "{inputRef.current.value}"</div>}
+                        </>}
 
-                <p onClick={(() => {
-                    setShowSearch(false)
-                    inputRef.current.value = ""
-                })} className='absolute right-2 bottom-2 w-[40px] h-[40px] bg-red-800 rounded-full flex justify-center items-center border-2 border-solid border-white cursor-pointer hover:border-black transition-all'>X</p>
+                    <p
+                        onClick={(() => {
+                            setShowSearch(false)
+                            inputRef.current.value = ""
+                        })}
+                        className='absolute right-2 bottom-2 w-[40px] h-[40px] bg-red-800 rounded-full flex justify-center items-center border-2 border-solid border-white cursor-pointer hover:border-black transition-all'>
+                        X
+                    </p>
 
-                <div onClick={() => setShowAll(!showAll)} className='absolute bottom-3 left-3 cursor-pointer'>
-                    {!showAll ? <FaUsersSlash className='text-2xl' /> : <FaUsers className='text-2xl' />}
-                </div>
+                    <div onClick={() => setShowAll(!showAll)} className='absolute bottom-3 left-3 cursor-pointer bg-slate-800 rounded-full border-2 border-white p-2'>
+                        {!showAll ? <FaUsersSlash className='text-2xl' /> : <FaUsers className='text-2xl' />}
+                    </div>
 
 
 
-            </div>}
+                </div>}
 
 
 
 
 
             {/* SHOWING FRIENDS */}
-            {!showSearch && <div className='w-full h-[90%]'>
+            {!showSearch
+                &&
+                <div className='w-full h-[90%] overflow-y-scroll'>
 
-                {/* SHOW OTHER USERS MEANS YOUR FRINDS IN LEFT SIDE */}
-                {loggedInUser.friends.length > 0 ? <>
-                    {
-                        loggedInUser.friends?.map((e) => (
+                    {/* SHOW OTHER USERS MEANS YOUR FRINDS IN LEFT SIDE */}
+                    {loggedInUser.friends.length > 0
+                        ?
+                        <>
+                            {
+                                loggedInUser.friends?.map((e) => (
 
-                            <div onClick={() => handleSelectedUser(e)} key={e._id} className={`flex gap-2 items-center p-2 hover:bg-slate-600 cursor-pointer ${selectedUser?._id == e._id ? "bg-slate-600" : "transparent"} relative`}>
+                                    <div
+                                        onClick={() => handleSelectedUser(e)}
+                                        key={e._id}
+                                        className={`w-full h-[60px] flex gap-2 items-center p-2 hover:bg-slate-600 cursor-pointer ${selectedUser?._id == e._id ? "bg-slate-600" : "transparent"} relative`}>
 
-                                <div className='relative w-[40px]'>
-                                    <img className='w-[40px]' src={e.profilePic} alt="" srcSet="" />
-                                    {onlineUsers?.includes(e._id) && <span className='absolute top-0 right-0 bg-green-600 text-xl w-[8px] h-[8px] rounded-full'></span>}
+                                        <div
+                                            className='relative w-[60px]'>
+
+                                            <img className='w-[60px]' src={e.profilePic} alt="" srcSet="" />
+
+                                            {onlineUsers?.includes(e._id) && <span className='absolute top-0 right-0 bg-green-600 text-xl w-[8px] h-[8px] rounded-full'></span>}
+
+                                        </div>
+
+                                        <div className='h-full flex flex-col items-start justify-start w-full'>
+
+                                            <p className='capitalize text-xl'>{e.userName}</p>
+                                            {/* <p className='capitalize text-[10px]'>There was a time in history</p> */}
+
+                                        </div>
+
+                                        <div className='h-full flex flex-col justify-start items-end gap-2 w-[80px]'>
+
+                                            <span className='text-[10px]'>{dayjs(e.active).format("hh:mm a")}</span>
+
+                                            <span className=''>{notifications.filter((elem) => (elem.senderId == e._id)).length > 0 ? <p className='w-[20px] h-[20px] rounded-full flex justify-center items-center text-[10px] bg-slate-700'>{notifications.filter((elem) => (elem.senderId == e._id)).length}</p> : ""}</span>
+
+                                        </div>
+
+                                    </div>
+
+                                ))
+                            }
+                        </>
+                        :
+                        <div className='h-full flex flex-col justify-center items-center gap-2'>
+                            <p>NO CONTACTS</p>
+                            <p onClick={() => {
+                                inputRef.current.focus()
+                                searchDivRef.current.style.backgroundColor = 'gray';
+                                inputRef.current.style.backgroundColor = 'gray';
+                                setTimeout(() => {
+                                    inputRef.current.style.backgroundColor = 'transparent';
+                                    searchDivRef.current.style.background = 'white';
+                                }, 500);
+                            }} className='px-4 py-1 bg-slate-400 rounded-lg cursor-pointer hover:bg-slate-800'>ADD</p>
+                        </div>}
+
+
+                    {/* SHOWING GROUP CHATS IN LEFT SIDE */}
+                    <div className='flex flex-col gap-2'>
+                        {
+                            userGroups?.map((elem) => (
+                                <div key={elem._id} onClick={() => handleGroupSelected(elem)} className={`flex ${selectedGroup?._id == elem._id ? "bg-slate-600" : "transparent"} hover:bg-slate-600 cursor-pointer p-2`}>
+
+                                    <MdGroups className='bg-white rounded-full text-yellow-500 p-1 w-[40px] h-[40px]' />
+
+                                    <p className='capitalize p-2'>{elem.groupName}</p>
+
                                 </div>
+                            ))
+                        }
+                    </div>
 
-                                <p className='capitalize'>{e.userName}</p>
-
-                                <span className='absolute top-1 right-1'>{notifications.filter((elem) => (elem.senderId == e._id)).length > 0 ? <p className='w-[20px] h-[20px] rounded-full flex justify-center items-center text-[10px] bg-slate-700'>{notifications.filter((elem) => (elem.senderId == e._id)).length}</p> : ""}</span>
-
-                            </div>
-
-                        ))
-                    }
-                </> : <div className='h-full flex flex-col justify-center items-center gap-2'>
-                    <p>NO CONTACTS</p>
-                    <p onClick={() => {
-                        inputRef.current.focus()
-                        searchDivRef.current.style.backgroundColor = 'gray';
-                        inputRef.current.style.backgroundColor = 'gray';
-                        setTimeout(() => {
-                            inputRef.current.style.backgroundColor = 'transparent';
-                            searchDivRef.current.style.background = 'white';
-                        }, 500);
-                    }} className='px-4 py-1 bg-slate-400 rounded-lg'>ADD</p>
                 </div>}
-
-
-
-                {/* SHOWING GROUP CHATS IN LEFT SIDE */}
-                <div className='flex flex-col gap-2'>
-                    {
-                        userGroups?.map((elem) => (
-                            <div key={elem._id} onClick={() => handleGroupSelected(elem)} className={`flex ${selectedGroup?._id == elem._id ? "bg-slate-600" : "transparent"} hover:bg-slate-600 cursor-pointer p-2`}>
-
-                                <MdGroups className='bg-white rounded-full text-yellow-500 p-1 w-[40px] h-[40px]' />
-
-                                <p className='capitalize p-2'>{elem.groupName}</p>
-
-                            </div>
-                        ))
-                    }
-                </div>
-
-            </div>}
 
             {/* SHOWING SEARCHED USER PROFILE TO CONNECT FOR START CHAT */}
             {showOtherUserProfile.show && <div onClick={() => setShowOtherUserProfile(false)} className='w-full h-full bg-gradient-to-r from-black fixed top-0 left-0 flex justify-center items-center z-10'>
@@ -277,6 +321,8 @@ const OtherUsers = () => {
                 </div>
 
             </div>}
+
+            <Navbar />
 
         </div>
     )

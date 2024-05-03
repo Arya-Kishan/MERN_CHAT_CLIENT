@@ -5,6 +5,8 @@ import { addNotifications, setMessages } from '../../redux/messageSlice'
 import { IoIosSend } from "react-icons/io";
 import { globalSocket } from '../../App';
 
+let typingBool = true;
+
 const SendMessage = () => {
 
     const inputRef = useRef(null)
@@ -60,15 +62,38 @@ const SendMessage = () => {
 
         inputRef.current.value = "";
 
+        handleHideTyping()
+        typingBool = true;
+
+    }
+
+    // USED FOR SHOWING TYPING LOADER
+    const handleShowTyping = () => {
+
+        if (typingBool && chatType == "solo") {
+            globalSocket.emit("User-Typing", { type: "start", userId: selectedUser._id });
+            typingBool = false;
+        }
+    }
+
+    // USED FOR HIDING TYPING LOADER
+    const handleHideTyping = () => {
+        if (chatType == "solo") {
+            globalSocket.emit("User-Typing", { type: "stop", userId: selectedUser._id })
+            typingBool = true;
+        }
     }
 
     useEffect(() => {
 
+
         globalSocket?.on("newMessage", (newMessage) => {
-            console.log(newMessage);
-            if (selectedUser._id == newMessage.senderId) {
+
+            console.log("INSIDE SOCKET SOLO");
+
+            if (selectedUser?._id == newMessage?.senderId && chatType == "solo" && newMessage.hasOwnProperty("receiverId")) {
                 console.log("USER VIWING THE CHAT OF SENDING USER SO DON'T SAVE IT AS NOTIFICATION");
-                dispatch(setMessages([...messages || [], newMessage]));
+                dispatch(setMessages([...messages, newMessage]));
             } else {
                 console.log("USER HAS SELECTED AND VIEWING OTHER USER NOW THAT'S Y HAVE TO SAVE AS NOTIFICATION AND SHOW AS UNSEEN MESSAGE POP UP");
                 console.log(notifications);
@@ -79,10 +104,16 @@ const SendMessage = () => {
 
 
 
+
         globalSocket?.on("group-message", (newMessage) => {
-            console.log(newMessage);
-            console.log(messages);
-            dispatch(setMessages([...messages || [], newMessage]));
+
+            console.log("INSIDE SOCKET GROUP");
+            console.log(selectedGroup);
+
+            if (chatType == "group" && newMessage.groupId == selectedGroup._id && newMessage.hasOwnProperty("groupId")) {
+                dispatch(setMessages([...messages, newMessage]));
+            }
+
         });
 
 
@@ -90,14 +121,27 @@ const SendMessage = () => {
 
     }, [setMessages, messages]);
 
+    console.log(selectedGroup);
+    console.log(selectedUser);
+
 
 
     return (
         <div className='p-2 bg-slate-600'>
+
             <div className='flex items-center bg-white rounded-lg'>
-                <input ref={inputRef} onKeyUp={(e) => { e.key == "Enter" ? handleSendMessage() : null }} className='w-full p-1 text-black rounded-lg border-none outline-none' type="text" placeholder='Type a message here...' />
-                <IoIosSend onClick={() => handleSendMessage()} className='text-3xl text-slate-900 cursor-pointer pr-2' />
+
+                <input
+                    ref={inputRef}
+                    onChange={handleShowTyping}
+                    onBlur={handleHideTyping}
+                    onKeyUp={(e) => { e.key == "Enter" ? handleSendMessage() : null }}
+                    className='w-full p-2 text-black rounded-lg border-none outline-none' type="text" placeholder='Type a message here...' />
+
+                <IoIosSend onClick={() => handleSendMessage()} className='text-4xl text-slate-900 cursor-pointer pr-2' />
+
             </div>
+
         </div>
     )
 }

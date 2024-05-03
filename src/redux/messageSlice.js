@@ -7,6 +7,8 @@ const initialState = {
   notifications: [],
   // BELOW STATE USED SLIDE RIGHT SIDE BAR IN MOBILE DEVICE AS IN MOBILE DEBICE RIGHT SIDE IS FIXED POSITION
   slideRightSide: "left-full",
+  // USED FOR SHOWING TYPING LOADER WHEN USER IS TYPING
+  typingLoader: { typing: false, userId: null },
 }
 
 export const messageSlice = createSlice({
@@ -25,9 +27,12 @@ export const messageSlice = createSlice({
     setSlideRightSide: (state, action) => {
       state.slideRightSide = (action.payload)
     },
+    setTypingLoader: (state, action) => {
+      state.typingLoader = (action.payload)
+    },
   },
 })
 
-export const { setMessages, setNotifications, addNotifications, setSlideRightSide } = messageSlice.actions
+export const { setMessages, setNotifications, addNotifications, setSlideRightSide, setTypingLoader } = messageSlice.actions
 
 export default messageSlice.reducer
