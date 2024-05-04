@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 body{
-    background-color: rgb(0, 0, 29);
+    /* background-color: rgb(0, 0, 29); */
     color: white;
+    background-image: url("./assets/chatBg.jpg");
 }
 
 ::-webkit-scrollbar{

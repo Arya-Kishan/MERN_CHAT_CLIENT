@@ -74,7 +74,7 @@ const SearchBook = () => {
 
 
             {/* SEARCH USER */}
-            <div className='w-full h-[7%] flex justify-between items-center p-2 gap-2 bg-white rounded-lg'>
+            <div className='w-full h-[7%] flex justify-between items-center p-2 my-2 gap-2 bg-white rounded-lg'>
 
                 <input ref={inputRef} onChange={handleDebounce} className='w-[80%] text-xl text-black border-none outline-none' type="text" placeholder='Search User...' />
 

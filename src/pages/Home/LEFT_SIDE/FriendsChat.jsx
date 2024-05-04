@@ -93,7 +93,7 @@ const FriendsChat = () => {
         <div className='w-full h-[100%] overflow-y-scroll pb-16 flex flex-col items-center gap-2'>
 
             {/* SEARCH USER */}
-            <div className='w-[98%] h-[7%] flex justify-between items-center p-3 gap-2 bg-white rounded-lg'>
+            <div className='w-[98%] h-[7%] flex justify-between items-center p-3 my-4 gap-2 bg-white rounded-lg'>
                 <input ref={inputRef} onChange={handleDebounce} className='w-[80%] text-xl md:text-[16px] text-black border-none outline-none' type="text" placeholder='Filter' />
                 <img className='w-[20px]' src={search} alt="" srcset="" />
             </div>
@@ -113,7 +113,7 @@ const FriendsChat = () => {
                                 <div
                                     className='relative w-[60px] h-[60px]'>
 
-                                    <img loading='lazy' className='w-[60px]' src={e.profilePic} alt="" srcSet="" />
+                                    <img loading='lazy' className='w-[60px]' src={`https://api.multiavatar.com/${e.userName}.svg`} alt="" srcSet="" />
 
                                     {onlineUsers?.includes(e._id) && <span className='absolute top-0 right-0 bg-green-600 text-xl w-[8px] h-[8px] rounded-full'></span>}
 

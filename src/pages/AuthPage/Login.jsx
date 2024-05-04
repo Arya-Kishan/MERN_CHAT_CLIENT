@@ -73,7 +73,7 @@ const Login = () => {
                         className='text-black text-xl p-2 rounded-lg'
                     />
 
-                    {errors?.userName && <span className='text-slate-600'>{errors.userName.message}</span>}
+                    {errors?.userName && <span className='text-red-600'>{errors.userName.message}</span>}
 
                 </div>
 
@@ -106,13 +106,13 @@ const Login = () => {
 
                     </div>
 
-                    {errors?.password && <span className='text-slate-600'>{errors.password.message}</span>}
+                    {errors?.password && <span className='text-red-600'>{errors.password.message}</span>}
 
 
                 </div>
 
 
-                <button className='bg-teal-500 rounded-lg px-4 py-2' type="submit">LOGIN</button>
+                <button disabled={loginLoader} className='bg-teal-500 rounded-lg px-4 py-2' type="submit">LOGIN</button>
 
             </form>
 
@@ -120,8 +120,6 @@ const Login = () => {
 
 
             {loginLoader && <img className='w-[40px] absolute top-[10%] left-[50%] -translate-x-[50%] -translate-y-[50%]' src={loader} alt="" srcSet="" />}
-
-
 
         </div>
     )

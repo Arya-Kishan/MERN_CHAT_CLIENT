@@ -14,7 +14,7 @@ const MainHeading = () => {
     const dispatch = useDispatch()
 
     return (
-        <div className='w-full h-full flex justify-between items-center p-2 bg-slate-800'>
+        <div className='w-full h-full flex justify-between items-center p-2 bg-slate-950'>
 
             <div className='flex gap-3 items-center'>
                 <img className='w-[40px]' src={logo} alt="" srcset="" />

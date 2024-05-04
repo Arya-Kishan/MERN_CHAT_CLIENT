@@ -38,7 +38,7 @@ const Home = () => {
   }, [])
 
   return (
-    <div className='w-full h-dvh flex flex-col justify-center items-center gap-1 bg-slate-900'>
+    <div className='w-full h-dvh flex flex-col justify-center items-center gap-1 bg-gradient-to-tr from-slate-950 to-slate-900'>
       {!loggedInUser && <Navigate to={"/login"} />}
 
       {/* MAIN HEADING */}
@@ -72,7 +72,7 @@ const Home = () => {
             :
             <div className='w-full h-full border-2 border-solid border-white flex flex-col justify-center items-center gap-5'>
 
-              <img className='w-[80px]' src="https://avatar.iran.liara.run/public/boy" alt="" srcSet="" />
+              <img className='w-[80px]' src="https://api.multiavatar.com/arya.svg" alt="" srcSet="" />
 
               <p className='bg-slate-700 p-4 rounded-lg'>Choose Conversation</p>
 

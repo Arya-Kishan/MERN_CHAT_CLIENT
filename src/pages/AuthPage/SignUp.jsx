@@ -122,7 +122,7 @@ const SignUp = () => {
                 </div>
 
 
-                <button className='bg-teal-500 rounded-lg px-4 py-2' type="submit">REGISTER</button>
+                <button disabled={signUpLoader} className='bg-teal-500 rounded-lg px-4 py-2' type="submit">REGISTER</button>
 
             </form>
 
