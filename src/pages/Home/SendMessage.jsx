@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNotifications, setMessages } from '../../redux/messageSlice'
-import { IoIosSend } from "react-icons/io";
+import send from '../../assets/send.svg'
 import { globalSocket } from '../../App';
 
 let typingBool = true;
@@ -138,7 +138,7 @@ const SendMessage = () => {
                     onKeyUp={(e) => { e.key == "Enter" ? handleSendMessage() : null }}
                     className='w-full p-2 text-black rounded-lg border-none outline-none' type="text" placeholder='Type a message here...' />
 
-                <IoIosSend onClick={() => handleSendMessage()} className='text-4xl text-slate-900 cursor-pointer pr-2' />
+                <img onClick={() => handleSendMessage()} className='w-[30px]' src={send} alt="" srcset="" />
 
             </div>
 

@@ -8,7 +8,8 @@ import dayjs from 'dayjs'
 import relativeTime from "dayjs/plugin/relativeTime"
 import axios from 'axios'
 import { debounce } from 'lodash'
-import { IoSearchSharp } from 'react-icons/io5'
+import addUserWhite from '../../../assets/addUserWhite.svg'
+import search from '../../../assets/search.svg'
 
 const FriendsChat = () => {
 
@@ -89,12 +90,12 @@ const FriendsChat = () => {
 
     return (
 
-        <div className='w-full h-[100%] overflow-y-scroll pb-10 flex flex-col items-center gap-2'>
+        <div className='w-full h-[100%] overflow-y-scroll pb-16 flex flex-col items-center gap-2'>
 
             {/* SEARCH USER */}
-            <div className='w-[98%] h-[7%] flex justify-between items-center p-2 gap-2 bg-white rounded-lg'>
-                <input ref={inputRef} onChange={handleDebounce} className='w-[80%] text-black border-none outline-none' type="text" placeholder='Search User...' />
-                <IoSearchSharp className='text-2xl text-black' />
+            <div className='w-[98%] h-[7%] flex justify-between items-center p-3 gap-2 bg-white rounded-lg'>
+                <input ref={inputRef} onChange={handleDebounce} className='w-[80%] text-xl md:text-[16px] text-black border-none outline-none' type="text" placeholder='Filter' />
+                <img className='w-[20px]' src={search} alt="" srcset="" />
             </div>
 
             {/* SHOW OTHER USERS MEANS YOUR FRINDS IN LEFT SIDE */}
@@ -110,9 +111,9 @@ const FriendsChat = () => {
                                 className={`w-full h-[60px] flex gap-2 items-center p-2 hover:bg-slate-600 cursor-pointer ${selectedUser?._id == e._id ? "bg-slate-600" : "transparent"} relative`}>
 
                                 <div
-                                    className='relative w-[60px]'>
+                                    className='relative w-[60px] h-[60px]'>
 
-                                    <img className='w-[60px]' src={e.profilePic} alt="" srcSet="" />
+                                    <img loading='lazy' className='w-[60px]' src={e.profilePic} alt="" srcSet="" />
 
                                     {onlineUsers?.includes(e._id) && <span className='absolute top-0 right-0 bg-green-600 text-xl w-[8px] h-[8px] rounded-full'></span>}
 
@@ -141,7 +142,7 @@ const FriendsChat = () => {
                 :
                 <div className='h-full flex flex-col justify-center items-center gap-2'>
                     <p>NO CONTACTS</p>
-                    <p className='px-4 py-1 bg-slate-400 rounded-lg cursor-pointer hover:bg-slate-800'>ADD</p>
+                    <img className='w-[20px]' src={addUserWhite} alt="" srcset="" />
                 </div>}
 
 

@@ -5,10 +5,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { Navigate, useNavigate } from 'react-router-dom'
 import { setLoggedInUser } from '../../redux/userSlice'
 import { toast } from "react-toastify"
-import { IoLogoSnapchat } from "react-icons/io";
 import loader from "../../assets/loader.svg"
-import { IoEye } from "react-icons/io5";
-import { IoMdEyeOff } from "react-icons/io";
+import showEye from "../../assets/show.svg"
+import closeEye from "../../assets/hide.svg"
+import logo from "../../assets/logo.svg"
 
 const Login = () => {
 
@@ -47,7 +47,7 @@ const Login = () => {
 
             {loggedInUser && <Navigate to='/' />}
 
-            <IoLogoSnapchat className='text-6xl my-10' />
+            <img className='w-[80px] mb-10' src={logo} alt="" srcset="" />
 
             <h1 className='text-4xl'>LOGIN</h1>
 
@@ -100,9 +100,9 @@ const Login = () => {
 
                         {showPassword
                             ?
-                            <IoEye onClick={() => setShowPassword(false)} className='text-black text-xl w-[15%]' />
+                            <img onClick={() => setShowPassword(false)} className='w-[25px] mr-4' src={showEye} alt="" srcset="" />
                             :
-                            <IoMdEyeOff onClick={() => setShowPassword(true)} className='text-black text-xl w-[15%]' />}
+                            <img onClick={() => setShowPassword(true)} className='w-[25px] mr-4' src={closeEye} alt="" srcset="" />}
 
                     </div>
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setLoggedInUser } from '../../redux/userSlice'
 import CreateGroup from './CreateGroup'
-import { IoLogoSnapchat } from "react-icons/io";
+import logo from '../../assets/logo.svg'
 
 const MainHeading = () => {
 
@@ -16,12 +16,14 @@ const MainHeading = () => {
     return (
         <div className='w-full h-full flex justify-between items-center p-2 bg-slate-800'>
 
-            <div className='flex gap-2 items-center'>
-                <IoLogoSnapchat className='text-3xl'/>
-                <h1 className='text-2xl font-bold'>CHAT APP</h1>
+            <div className='flex gap-3 items-center'>
+                <img className='w-[40px]' src={logo} alt="" srcset="" />
+                <h1 className='text-3xl font-bold'>CHAT APP</h1>
             </div>
-            <img onClick={() => setShowProfile(true)} className='w-[35px] h-[35px]' src={loggedInUser.profilePic} alt="" srcSet="" />
 
+            <img onClick={() => setShowProfile(true)} className='w-[40px] h-[40px]' src={loggedInUser.profilePic} alt="" srcSet="" />
+
+            {/* OPTIONS SETTINGS LIKE LOGOUT ... */}
             {showProfile && <div onClick={() => setShowProfile(false)} className='w-full h-full absolute top-0 right-0 z-10'>
 
                 <div className='w-[200px] absolute top-[13%] right-[10%] bg-slate-700 flex flex-col'>

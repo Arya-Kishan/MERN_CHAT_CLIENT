@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { RiInformationLine } from "react-icons/ri";
+import info from "../../assets/info.svg";
 import dayjs from "dayjs"
-import { MdGroups } from "react-icons/md";
+import group from "../../assets/group.svg";
 import relativeTime from "dayjs/plugin/relativeTime"
 dayjs.extend(relativeTime)
 
@@ -32,18 +32,18 @@ const ChatHeading = () => {
 
                     </div>
 
-                    <RiInformationLine onClick={() => setShowMembers(true)} className='text-xl text-slate-400' />
+                    <img className='w-[20px]' onClick={() => setShowMembers(true)} src={info} alt="" srcset="" />
 
                 </div>
                 :
                 <div className='flex gap-2 items-center justify-between p-2 bg-slate-500'>
 
                     <div className='flex items-center gap-2'>
-                        <MdGroups className='bg-white rounded-full text-yellow-500 p-1 w-[40px] h-[40px]' />
+                        <img className='w-[30px]' src={group} alt="" srcset="" />
                         <p>{selectedGroup.groupName}</p>
                     </div>
 
-                    <RiInformationLine onClick={() => setShowMembers(true)} className='text-xl text-slate-400' />
+                    <img className='w-[20px]' onClick={() => setShowMembers(true)} src={info} alt="" srcset="" />
 
                 </div>}
 
@@ -53,8 +53,8 @@ const ChatHeading = () => {
                 <div className='w-[80%] md:w-[50%] h-[50vh] flex flex-col gap-4 bg-slate-800 p-4'>
                     <h1 className='font-bold text-2xl text-center'>Members</h1>
                     {selectedGroup?.groupMembers.map((e) => (<p key={e} className='capitalize flex gap-2 items-center'>
-                        <img className='w-[40px] h-[40px]' src={e.profilePic} alt="" srcset="" />
-                        <span>{e.userName}</span>
+                        <img className='w-[50px] h-[50px]' src={e.profilePic} alt="" srcset="" />
+                        <span className='text-xl'>{e.userName}</span>
                     </p>))}
                 </div>
             </div>}

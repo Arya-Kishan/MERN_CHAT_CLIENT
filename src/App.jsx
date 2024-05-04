@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Home from './pages/Home/Home'
-import Login from './pages/AuthPage/Login'
-import SignUp from './pages/AuthPage/SignUp'
 import { useSelector, useDispatch } from "react-redux"
 import Protected from './pages/Protected'
 import io from "socket.io-client"
@@ -10,6 +7,11 @@ import { setOnlineUsers, setSocket } from './redux/socketSlice'
 import axios from 'axios'
 import { setTypingLoader } from './redux/messageSlice'
 export let globalSocket;
+import loader from './assets/loader.svg'
+
+const Login = lazy(() => import('./pages/AuthPage/Login'))
+const SignUp = lazy(() => import('./pages/AuthPage/SignUp'))
+const Home = lazy(() => import('./pages/Home/Home'))
 
 const App = () => {
 
@@ -54,11 +56,13 @@ const App = () => {
   return (
     <div>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Protected><Home /></Protected>} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
-        </Routes>
+        <Suspense fallback={<div className='w-full h-dvh flex justify-center items-center'><img className='w-[50px]' src={loader} alt="" srcSet="" /></div>}>
+          <Routes>
+            <Route path='/' element={<Protected><Home /></Protected>} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </div>
   )

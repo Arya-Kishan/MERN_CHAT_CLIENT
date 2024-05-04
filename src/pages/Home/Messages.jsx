@@ -98,7 +98,7 @@ const Messages = () => {
                         key={e._id}
                         className={`w-full flex ${loggedInUserId == (selectedGroup ? e.senderId._id : e.senderId) ? "justify-end" : "justify-start"}`} >
 
-                        <p className={`flex flex-col w-[50%] bg-slate-900 rounded-xl ${loggedInUserId == (selectedGroup ? e.senderId._id : e.senderId) ? "rounded-br-none" : "rounded-bl-none"} p-2`}>
+                        <p className={`flex flex-col w-[48%] bg-slate-900 rounded-xl ${loggedInUserId == (selectedGroup ? e.senderId._id : e.senderId) ? "rounded-br-none" : "rounded-bl-none"} p-2`}>
 
                             <span className='text-[10px] text-slate-400 capitalize'>
                                 {selectedGroup && e.senderId.userName}

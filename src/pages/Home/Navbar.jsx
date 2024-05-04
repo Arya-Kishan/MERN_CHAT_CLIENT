@@ -1,46 +1,61 @@
 import React, { useState } from 'react'
-import { IoChatboxSharp } from "react-icons/io5";
-import { HiUserGroup } from "react-icons/hi";
-import { IoMdAddCircle } from "react-icons/io";
-import { MdContactPage } from "react-icons/md";
 
+import chatWhite from '../../assets/chatWhite.svg'
+import chatRed from '../../assets/chatRed.svg'
+import groupRed from '../../assets/groupRed.svg'
+import groupWhite from '../../assets/groupWhite.svg'
+import addUserRed from '../../assets/addUserRed.svg'
+import addUserWhite from '../../assets/addUserWhite.svg'
+import addWhite from '../../assets/addWhite.svg'
+import addRed from '../../assets/addRed.svg'
 
 const Navbar = ({ setShow }) => {
 
-    const [options, setOptions] = useState({ chatBtn: false, groupBtn: false, addBtn: false, settingBtn: false })
+    const [options, setOptions] = useState({ chatBtn: true, groupBtn: false, addBtn: false, settingBtn: false })
 
     console.log(options);
 
     return (
         <>
 
-            <IoChatboxSharp
+            <div
                 onClick={() => {
                     setOptions({ chatBtn: true, groupBtn: false, addBtn: false, settingBtn: false })
                     setShow({ friendChat: true, groupChat: false, searchBook: false })
                 }}
-                className={`text-3xl cursor-pointer p-1 ${options.chatBtn ? "text-[red]" : "text-white"}`} />
+                className='flex items-center justify-center'>
+                {options.chatBtn ? <img className='w-[30px]' src={chatRed} alt="" srcset="" /> : <img className='w-[30px]' src={chatWhite} alt="" srcset="" />}
+            </div>
 
-            <HiUserGroup
+
+            <div
                 onClick={() => {
                     setOptions({ chatBtn: false, groupBtn: true, addBtn: false, settingBtn: false })
                     setShow({ friendChat: false, groupChat: true, searchBook: false })
                 }}
-                className={`text-3xl cursor-pointer p-1 ${options.groupBtn ? "text-[red]" : "text-white"}`} />
+                className='flex items-center justify-center'>
+                {options.groupBtn ? <img className='w-[30px]' src={groupRed} alt="" srcset="" /> : <img className='w-[30px]' src={groupWhite} alt="" srcset="" />}
+            </div>
 
-            <IoMdAddCircle
+
+            <div
                 onClick={() => {
                     setOptions({ chatBtn: false, groupBtn: false, addBtn: true, settingBtn: false })
                     setShow({ friendChat: false, groupChat: true, searchBook: false })
                 }}
-                className={`text-3xl cursor-pointer p-1 ${options.addBtn ? "text-[red]" : "text-white"}`} />
+                className='flex items-center justify-center'>
+                {options.addBtn ? <img className='w-[30px]' src={addRed} alt="" srcset="" /> : <img className='w-[30px]' src={addWhite} alt="" srcset="" />}
+            </div>
 
-            <MdContactPage
+
+            <div
                 onClick={() => {
                     setOptions({ chatBtn: false, groupBtn: false, addBtn: false, settingBtn: true })
                     setShow({ friendChat: false, groupChat: false, searchBook: true })
                 }}
-                className={`text-3xl cursor-pointer p-1 ${options.settingBtn ? "text-[red]" : "text-white"}`} />
+                className='flex items-center justify-center'>
+                {options.settingBtn ? <img className='w-[30px]' src={addUserRed} alt="" srcset="" /> : <img className='w-[30px]' src={addUserWhite} alt="" srcset="" />}
+            </div>
 
 
         </>

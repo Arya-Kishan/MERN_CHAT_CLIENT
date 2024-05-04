@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from "axios";
 import { useForm } from "react-hook-form"
 import { useSelector, useDispatch } from "react-redux"
 import { setLoggedInUser } from '../../redux/userSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { IoLogoSnapchat } from "react-icons/io";
+import loader from "../../assets/loader.svg"
 
 
 const SignUp = () => {
@@ -15,23 +16,28 @@ const SignUp = () => {
         formState: { errors },
     } = useForm()
 
+    const [signUpLoader, setSignUpLoader] = useState(false)
+
     // const {value} = useSelector(store=>store.user)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const { loggedInUser } = useSelector(store => store.user)
 
 
     const onSubmit = async (data) => {
+        setSignUpLoader(true)
         const res = await axios.post(`/user/register`, data)
         console.log(res);
         dispatch(setLoggedInUser(res.data.data))
+        setSignUpLoader(false)
     }
 
     return (
-        <div className='flex flex-col justify-center items-center p-2'>
+        <div className='h-dvh flex flex-col justify-center items-center p-2 relative'>
             {loggedInUser && <Navigate to='/' />}
 
-            <IoLogoSnapchat className='text-6xl my-10' />
+            <IoLogoSnapchat className='text-6xl my-8' />
 
 
             <h1 className='text-4xl'>SIGN UP</h1>
@@ -121,6 +127,8 @@ const SignUp = () => {
             </form>
 
             <p onClick={() => navigate("/login")} className='mt-2'>Already a user, <span className='text-teal-500'>Login</span></p>
+
+            {signUpLoader && <img className='w-[40px] absolute top-[10%] left-[50%] -translate-x-[50%] -translate-y-[50%]' src={loader} alt="" srcSet="" />}
 
         </div>
     )
