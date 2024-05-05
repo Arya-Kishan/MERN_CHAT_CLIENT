@@ -47,7 +47,7 @@ const Login = () => {
 
             {loggedInUser && <Navigate to='/' />}
 
-            <img className='w-[80px] mb-10' src={logo} alt="" srcset="" />
+            <img className='w-[80px] mb-10' src={logo} alt="" srcSet="" />
 
             <h1 className='text-4xl'>LOGIN</h1>
 
@@ -100,9 +100,9 @@ const Login = () => {
 
                         {showPassword
                             ?
-                            <img onClick={() => setShowPassword(false)} className='w-[25px] mr-4' src={showEye} alt="" srcset="" />
+                            <img onClick={() => setShowPassword(false)} className='w-[25px] mr-4' src={showEye} alt="" srcSet="" />
                             :
-                            <img onClick={() => setShowPassword(true)} className='w-[25px] mr-4' src={closeEye} alt="" srcset="" />}
+                            <img onClick={() => setShowPassword(true)} className='w-[25px] mr-4' src={closeEye} alt="" srcSet="" />}
 
                     </div>
 

@@ -95,7 +95,7 @@ const Messages = () => {
 
 
     return (
-        <div className='h-full bg-slate-950 flex flex-col gap-3 p-3 overflow-auto'>
+        <div className='h-full bg-slate-950 flex flex-col gap-3 p-3 overflow-auto relative'>
 
             {loader ? <p className='text-center opacity-[0.2]'>Getting Messages...</p> : <>
                 {messages?.length > 0
@@ -127,8 +127,10 @@ const Messages = () => {
                 }
             </>}
 
-            {typingLoader.typing && chatType == "solo" && <div ref={typingLoaderDivref} className='flex w-[60px] p-1 bg-slate-900 rounded-lg'>
-                <img className='w-[20px]' src={typingLoaderImg} alt="" srcset="" />
+            {messages?.length > 0 ? typingLoader.typing && chatType == "solo" && <div ref={typingLoaderDivref} className='flex w-[60px] p-1 bg-slate-900 rounded-lg'>
+                <img className='w-[20px]' src={typingLoaderImg} alt="" srcSet="" />
+            </div> : typingLoader.typing && chatType == "solo" && <div ref={typingLoaderDivref} className='flex w-[60px] p-1 bg-slate-900 rounded-lg absolute bottom-2 left-2'>
+                <img className='w-[20px]' src={typingLoaderImg} alt="" srcSet="" />
             </div>}
 
         </div>

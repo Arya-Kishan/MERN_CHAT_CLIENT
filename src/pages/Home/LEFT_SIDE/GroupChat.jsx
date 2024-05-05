@@ -45,9 +45,9 @@ const GroupChat = () => {
     return (
         <>
 
-            <div className='flex flex-col gap-2'>
+            <div className='h-full flex flex-col gap-2'>
                 {
-                    userGroups?.map((elem) => (
+                    userGroups?.length > 0 ? userGroups?.map((elem) => (
                         <div
                             key={elem._id}
                             onClick={() => handleGroupSelected(elem)}
@@ -58,7 +58,7 @@ const GroupChat = () => {
                             <p className='capitalize p-2 text-xl'>{elem.groupName}</p>
 
                         </div>
-                    ))
+                    )) : <div className='w-full h-full flex justify-center items-center'>NO GROUPS</div>
                 }
             </div>
         </>

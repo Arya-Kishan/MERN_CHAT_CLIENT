@@ -39,7 +39,7 @@ export const userSlice = createSlice({
       state.searchUserResult = action.payload
     },
     addFriends: (state, action) => {
-      state.loggedInUser.friends.push(action.payload)
+      state.loggedInUser.friends.unshift(action.payload)
     },
   },
   extraReducers: (builder) => {

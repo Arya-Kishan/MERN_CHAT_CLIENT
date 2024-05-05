@@ -12,7 +12,7 @@ const OtherUsers = () => {
     return (
         <div className='h-full p-1 overflow-auto flex justify-evenly items-center gap-1 relative'>
 
-            <div className='absolute bottom-0 left-0 w-full md:static md:w-[15%] h-fit md:h-full flex md:flex-col items-center justify-evenly bg-slate-950 z-5 p-2 shadow-sm shadow-slate-800'>
+            <div className='absolute bottom-0 left-0 w-full md:static md:w-[15%] h-fit md:h-full flex md:flex-col items-center justify-evenly bg-slate-950 z-5 p-2 shadow-sm shadow-slate-800 z-5'>
                 <Navbar setShow={setShow} />
             </div>
 

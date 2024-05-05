@@ -4,9 +4,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import dayjs from 'dayjs'
 import addUserWhite from '../../../assets/addUserWhite.svg'
 import { toast } from 'react-toastify';
-import { searchUserAsync, setSearchUserResult } from '../../../redux/userSlice';
+import { addFriends, searchUserAsync, setSearchUserResult } from '../../../redux/userSlice';
 import allUser from "../../../assets/allUser.svg"
 import { useDispatch, useSelector } from 'react-redux';
+import search from '../../../assets/search.svg'
 
 const SearchBook = () => {
 
@@ -18,6 +19,7 @@ const SearchBook = () => {
 
 
     const { searchUserResult } = useSelector(store => store.user)
+    const { loggedInUser } = useSelector(store => store.user)
 
     const [showOtherUserProfile, setShowOtherUserProfile] = useState({ user: null, show: false });
 
@@ -35,6 +37,8 @@ const SearchBook = () => {
             inputRef.current.value = "";
             setShowOtherUserProfile({ user: null, show: false })
             toast("Added")
+        } else if (res.status == 202) {
+            toast("Already Friend")
         } else {
             toast("Error Occured")
         }
@@ -78,13 +82,13 @@ const SearchBook = () => {
 
                 <input ref={inputRef} onChange={handleDebounce} className='w-[80%] text-xl text-black border-none outline-none' type="text" placeholder='Search User...' />
 
-                <img className='w-[40px]' src={addUserWhite} alt="" srcset="" />
+                <img className='w-[30px]' src={search} alt="" srcSet="" />
 
             </div>
 
 
             {/* SHOWING SEARCH USER RESULT */}
-            <div className='w-full flex flex-col gap-2 p-2 pb-10 mt-2 h-[90%] relative rounded-xl'>
+            <div className='w-full flex flex-col gap-2 px-2 mt-2 h-[85%] relative rounded-xl'>
 
                 {searchUserResult.loader == "loading"
                     ?
@@ -111,7 +115,7 @@ const SearchBook = () => {
 
                 <div onClick={() => setShowAll(!showAll)} className='absolute top-[86%] md:top-[90%] right-5 md:right-3 cursor-pointer bg-slate-800 rounded-full border-2 border-white p-2 shadow-sm shadow-white hover:bg-slate-900'>
 
-                    {!showAll ? <img className='w-[30px] md:w-[20px]' src={allUser} alt="" srcset="" /> : <img className='w-[30px] md:w-[20px]' src={allUser} alt="" srcset="" />}
+                    {!showAll ? <img className='w-[30px] md:w-[20px]' src={allUser} alt="" srcSet="" /> : <img className='w-[30px] md:w-[20px]' src={allUser} alt="" srcSet="" />}
 
 
                 </div>

@@ -24,6 +24,10 @@ Chat app is a messaging web application where a user can have a conversation wit
 
 6. The Typing Loader providing real-time feedback when another user is typing
 
+7. Unseen Message Notification
+
+8. Search User and Connect With them
+
 # Tech Stack 🎨
 
 - MERN Stack

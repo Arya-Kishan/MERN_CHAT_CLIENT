@@ -8,6 +8,7 @@ import axios from 'axios'
 import { setTypingLoader } from './redux/messageSlice'
 export let globalSocket;
 import loader from './assets/loader.svg'
+import NotFoundPage from './pages/NotFoundPage'
 
 const Login = lazy(() => import('./pages/AuthPage/Login'))
 const SignUp = lazy(() => import('./pages/AuthPage/SignUp'))
@@ -61,6 +62,7 @@ const App = () => {
             <Route path='/' element={<Protected><Home /></Protected>} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<SignUp />} />
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>

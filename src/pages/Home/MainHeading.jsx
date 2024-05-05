@@ -17,7 +17,7 @@ const MainHeading = () => {
         <div className='w-full h-full flex justify-between items-center p-2 bg-slate-950'>
 
             <div className='flex gap-3 items-center'>
-                <img className='w-[40px]' src={logo} alt="" srcset="" />
+                <img className='w-[40px]' src={logo} alt="" srcSet="" />
                 <h1 className='text-3xl font-bold'>CHAT APP</h1>
             </div>
 

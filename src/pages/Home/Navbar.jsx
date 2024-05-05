@@ -23,8 +23,8 @@ const Navbar = ({ setShow }) => {
                     setOptions({ chatBtn: true, groupBtn: false, addBtn: false, settingBtn: false })
                     setShow({ friendChat: true, groupChat: false, searchBook: false })
                 }}
-                className='flex items-center justify-center'>
-                {options.chatBtn ? <img className='w-[30px]' src={chatRed} alt="" srcset="" /> : <img className='w-[30px]' src={chatWhite} alt="" srcset="" />}
+                className='flex items-center justify-center cursor-pointer'>
+                {options.chatBtn ? <img className='w-[30px]' src={chatRed} alt="" srcSet="" /> : <img className='w-[30px]' src={chatWhite} alt="" srcSet="" />}
             </div>
 
 
@@ -33,8 +33,8 @@ const Navbar = ({ setShow }) => {
                     setOptions({ chatBtn: false, groupBtn: true, addBtn: false, settingBtn: false })
                     setShow({ friendChat: false, groupChat: true, searchBook: false })
                 }}
-                className='flex items-center justify-center'>
-                {options.groupBtn ? <img className='w-[30px]' src={groupRed} alt="" srcset="" /> : <img className='w-[30px]' src={groupWhite} alt="" srcset="" />}
+                className='flex items-center justify-center cursor-pointer'>
+                {options.groupBtn ? <img className='w-[30px]' src={groupRed} alt="" srcSet="" /> : <img className='w-[30px]' src={groupWhite} alt="" srcSet="" />}
             </div>
 
 
@@ -43,8 +43,8 @@ const Navbar = ({ setShow }) => {
                     setOptions({ chatBtn: false, groupBtn: false, addBtn: true, settingBtn: false })
                     setShow({ friendChat: false, groupChat: true, searchBook: false })
                 }}
-                className='flex items-center justify-center'>
-                {options.addBtn ? <img className='w-[30px]' src={addRed} alt="" srcset="" /> : <img className='w-[30px]' src={addWhite} alt="" srcset="" />}
+                className='flex items-center justify-center cursor-pointer'>
+                {options.addBtn ? <img className='w-[30px]' src={addRed} alt="" srcSet="" /> : <img className='w-[30px]' src={addWhite} alt="" srcSet="" />}
             </div>
 
 
@@ -53,8 +53,8 @@ const Navbar = ({ setShow }) => {
                     setOptions({ chatBtn: false, groupBtn: false, addBtn: false, settingBtn: true })
                     setShow({ friendChat: false, groupChat: false, searchBook: true })
                 }}
-                className='flex items-center justify-center'>
-                {options.settingBtn ? <img className='w-[30px]' src={addUserRed} alt="" srcset="" /> : <img className='w-[30px]' src={addUserWhite} alt="" srcset="" />}
+                className='flex items-center justify-center cursor-pointer'>
+                {options.settingBtn ? <img className='w-[30px]' src={addUserRed} alt="" srcSet="" /> : <img className='w-[30px]' src={addUserWhite} alt="" srcSet="" />}
             </div>
 
 

@@ -6,6 +6,7 @@ import { setLoggedInUser } from '../../redux/userSlice';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { IoLogoSnapchat } from "react-icons/io";
 import loader from "../../assets/loader.svg"
+import { toast } from "react-toastify"
 
 
 const SignUp = () => {
@@ -29,7 +30,12 @@ const SignUp = () => {
         setSignUpLoader(true)
         const res = await axios.post(`/user/register`, data)
         console.log(res);
-        dispatch(setLoggedInUser(res.data.data))
+
+        if (res.status == 200) {
+            dispatch(setLoggedInUser(res.data.data))
+        } else {
+            toast(res?.data.message)
+        }
         setSignUpLoader(false)
     }
 
