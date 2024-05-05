@@ -95,7 +95,7 @@ const Messages = () => {
 
 
     return (
-        <div className='h-full bg-slate-600 flex flex-col gap-3 p-3 overflow-auto'>
+        <div className='h-full bg-slate-950 flex flex-col gap-3 p-3 overflow-auto'>
 
             {loader ? <p className='text-center opacity-[0.2]'>Getting Messages...</p> : <>
                 {messages?.length > 0

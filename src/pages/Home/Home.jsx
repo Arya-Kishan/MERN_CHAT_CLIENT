@@ -54,10 +54,10 @@ const Home = () => {
         </div>
 
         {/* RIGHT SIDE MESSAGES CHAT */}
-        <div className={`fixed top-0 ${slideRightSide} transition-all ease-in-out duration-300 md:static w-full h-full md:w-[70%] p-1 z-20`}>
+        <div className={`fixed top-0 ${slideRightSide} transition-all ease-in-out duration-300 md:static w-full h-full md:w-[70%] p-1`}>
           {selectedUser || selectedGroup
             ?
-            <div className='w-full h-full flex flex-col'>
+            <div className='w-full h-full flex flex-col shadow-sm shadow-white'>
 
               {/* SELECTED USER NAME HEADING IN CHAT */}
               <ChatHeading />

@@ -91,7 +91,7 @@ const SearchBook = () => {
                     <div className='h-full flex items-center justify-center'>Loading...</div>
                     :
                     <>
-                        {searchUserResult.data.length > 0
+                        {searchUserResult.data?.length > 0
                             ?
                             <div className='flex flex-col gap-2 overflow-y-scroll'>
                                 {searchUserResult.data.map((e) => (
@@ -109,9 +109,9 @@ const SearchBook = () => {
                     </>}
 
 
-                <div onClick={() => setShowAll(!showAll)} className='absolute top-[86%] md:top-[90%] right-5 md:right-3 cursor-pointer bg-slate-800 rounded-full border-2 border-white p-2 shadow-sm shadow-white'>
+                <div onClick={() => setShowAll(!showAll)} className='absolute top-[86%] md:top-[90%] right-5 md:right-3 cursor-pointer bg-slate-800 rounded-full border-2 border-white p-2 shadow-sm shadow-white hover:bg-slate-900'>
 
-                    {!showAll ? <img className='w-[30px] md:w-[20px]' src={allUser} alt="" srcset="" /> : <img className='w-[30px]' src={allUser} alt="" srcset="" />}
+                    {!showAll ? <img className='w-[30px] md:w-[20px]' src={allUser} alt="" srcset="" /> : <img className='w-[30px] md:w-[20px]' src={allUser} alt="" srcset="" />}
 
 
                 </div>
@@ -122,17 +122,17 @@ const SearchBook = () => {
 
 
             {/* SHOWING SEARCHED USER PROFILE TO CONNECT FOR START CHAT */}
-            {showOtherUserProfile.show && <div onClick={() => setShowOtherUserProfile(false)} className='w-full h-full bg-gradient-to-r from-black fixed top-0 left-0 flex justify-center items-center z-10'>
+            {showOtherUserProfile.show && <div onClick={() => setShowOtherUserProfile(false)} className='w-full h-full bg-gradient-to-r from-black fixed top-0 left-0 flex justify-center items-center z-20'>
 
-                <div onClick={(e) => e.stopPropagation()} className='w-[80%] sm:w-[40%] h-[50%] bg-slate-900 rounded-xl shadow-lg shadow-slate-800 flex justify-center items-center flex-col gap-2 relative'>
+                <div onClick={(e) => e.stopPropagation()} className='w-[80%] sm:w-[40%] h-[50%] bg-slate-950 rounded-xl shadow-lg shadow-slate-800 flex justify-center items-center flex-col gap-2 relative'>
 
                     <img className='w-[80px] h-[80px]' src={showOtherUserProfile?.user?.profilePic} alt="" srcSet="" />
 
                     <p className='capitalize text-3xl'>{showOtherUserProfile?.user?.userName}</p>
 
-                    <p className='capitalize text-3xl absolute top-0 left-0 text-[10px] p-2'>JOINED : {dayjs(showOtherUserProfile?.user?.createdAt).format("DD-MM-YY")}</p>
+                    <p className='capitalize text-3xl absolute top-0 left-0 text-[10px] px-6 py-2'>JOINED : {dayjs(showOtherUserProfile?.user?.createdAt).format("DD-MM-YY")}</p>
 
-                    <p className='text-3xl absolute top-0 right-0 text-[10px] p-2'>ACTIVE : {dayjs().from(dayjs(showOtherUserProfile?.user?.active)).split(" ").slice(1).join(" ")} ago</p>
+                    <p className='text-3xl absolute top-0 right-0 text-[10px] px-6 py-2'>ACTIVE : {dayjs().from(dayjs(showOtherUserProfile?.user?.active)).split(" ").slice(1).join(" ")} ago</p>
 
                     <p onClick={() => handleMakeFriend(showOtherUserProfile.user)} className='text-center p-2 mt-8'><span className='bg-slate-600 p-2 rounded-md mt-4 cursor-pointer hover:bg-slate-800'>Connect</span></p>
 

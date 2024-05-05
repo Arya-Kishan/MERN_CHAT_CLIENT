@@ -19,15 +19,15 @@ const ChatHeading = () => {
         <>
             {chatType == "solo"
                 ?
-                <div className='flex gap-2 items-center justify-between p-4 bg-slate-800'>
+                <div className='flex gap-2 items-center justify-between p-4 md:p-2 bg-slate-950'>
 
                     <div className='flex gap-2 items-center'>
 
-                        <img className='w-[50px]' src={selectedUser.profilePic} alt="" srcSet="" />
+                        <img className='w-[50px] md:w-[35px]' src={selectedUser.profilePic} alt="" srcSet="" />
 
                         <div>
-                            <p className='text-2xl'>{selectedUser.userName}</p>
-                            {onlineUsers?.includes(selectedUser._id) ? <span className='text-green-800 text-[14px]'>Active Now</span> : <p className='text-[14px]'>{dayjs().from(dayjs(selectedUser.active)).split(" ").slice(1).join(" ")} ago</p>}
+                            <p className='text-2xl md:text-[20px]'>{selectedUser.userName}</p>
+                            {onlineUsers?.includes(selectedUser._id) ? <span className='text-green-800 text-[14px] md:text-[12px]'>Active Now</span> : <p className='text-[14px] md:text-[12px]'>{dayjs().from(dayjs(selectedUser.active)).split(" ").slice(1).join(" ")} ago</p>}
                         </div>
 
                     </div>

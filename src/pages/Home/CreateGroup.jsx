@@ -58,7 +58,7 @@ const CreateGroup = ({ setShowCreateGroup }) => {
     return (
         <div onClick={() => setShowCreateGroup(false)} className='w-full h-full bg-gradient-to-r from-black fixed top-0 left-0 flex justify-center items-center z-10'>
 
-            <div onClick={e => e.stopPropagation()} className='w-[50%] bg-slate-500'>
+            <div onClick={e => e.stopPropagation()} className='w-[50%] bg-slate-900 rounded-xl'>
 
                 <div className='flex flex-col gap-2 p-4'>
 

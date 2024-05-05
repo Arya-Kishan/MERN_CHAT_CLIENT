@@ -127,7 +127,7 @@ const SendMessage = () => {
 
 
     return (
-        <div className='p-2 bg-slate-600'>
+        <div className='p-2 bg-slate-950'>
 
             <div className='flex items-center bg-white rounded-lg'>
 
@@ -138,7 +138,7 @@ const SendMessage = () => {
                     onKeyUp={(e) => { e.key == "Enter" ? handleSendMessage() : null }}
                     className='w-full p-2 text-black rounded-lg border-none outline-none' type="text" placeholder='Type a message here...' />
 
-                <img onClick={() => handleSendMessage()} className='w-[30px]' src={send} alt="" srcset="" />
+                <img onClick={() => handleSendMessage()} className='w-[30px] mr-2' src={send} alt="" srcset="" />
 
             </div>
 

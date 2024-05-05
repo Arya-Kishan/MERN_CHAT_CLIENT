@@ -21,12 +21,12 @@ const MainHeading = () => {
                 <h1 className='text-3xl font-bold'>CHAT APP</h1>
             </div>
 
-            <img onClick={() => setShowProfile(true)} className='w-[40px] h-[40px]' src={loggedInUser.profilePic} alt="" srcSet="" />
+            <img onClick={() => setShowProfile(true)} className='w-[40px] h-[40px] md:w-[30px] md:h-[30px]' src={loggedInUser.profilePic} alt="" srcSet="" />
 
             {/* OPTIONS SETTINGS LIKE LOGOUT ... */}
             {showProfile && <div onClick={() => setShowProfile(false)} className='w-full h-full absolute top-0 right-0 z-10'>
 
-                <div className='w-[200px] absolute top-[13%] right-[10%] bg-slate-700 flex flex-col'>
+                <div className='w-[200px] absolute top-[64px] right-[5%] bg-slate-700 flex flex-col'>
 
                     <p className='capitalize text-center bg-slate-800 p-2'>{loggedInUser.userName}</p>
 
