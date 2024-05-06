@@ -116,7 +116,7 @@ const Login = () => {
 
             </form>
 
-            <p onClick={() => navigate("/signup")} className='mt-2'>Not a user, <span className='text-teal-500'>Sign Up</span></p>
+            <p onClick={() => navigate("/signup")} className='mt-2'>Not a user, <span className='text-teal-500 cursor-pointer'>Sign Up</span></p>
 
 
             {loginLoader && <img className='w-[40px] absolute top-[10%] left-[50%] -translate-x-[50%] -translate-y-[50%]' src={loader} alt="" srcSet="" />}

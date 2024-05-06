@@ -18,6 +18,14 @@ export const messageSlice = createSlice({
     setMessages: (state, action) => {
       state.messages = action.payload
     },
+    updateMessages: (state, action) => {
+      let index = state.messages.findIndex((e) => (e._id == action.payload._id))
+      state.messages.splice(index, 1, action.payload)
+    },
+    deleteMessage: (state, action) => {
+      let index = state.messages.findIndex((e) => (e._id == action.payload._id))
+      state.messages.splice(index, 1,action.payload)
+    },
     setNotifications: (state, action) => {
       state.notifications = (action.payload)
     },
@@ -33,6 +41,6 @@ export const messageSlice = createSlice({
   },
 })
 
-export const { setMessages, setNotifications, addNotifications, setSlideRightSide, setTypingLoader } = messageSlice.actions
+export const { setMessages, updateMessages, setNotifications, addNotifications, setSlideRightSide, setTypingLoader, deleteMessage } = messageSlice.actions
 
 export default messageSlice.reducer

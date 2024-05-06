@@ -53,7 +53,7 @@ const GroupChat = () => {
                             onClick={() => handleGroupSelected(elem)}
                             className={`flex gap-2 ${selectedGroup?._id == elem._id ? "bg-slate-600" : "transparent"} hover:bg-slate-600 cursor-pointer p-2`}>
 
-                            <img className='w-[30px]' src={groupWhite} alt="" srcset="" />
+                            <img className='w-[30px]' src={groupWhite} alt="" srcSet="" />
 
                             <p className='capitalize p-2 text-xl'>{elem.groupName}</p>
 

@@ -30,7 +30,7 @@ const FriendsChat = () => {
         // BELOW SOCKET USED TO MAKE USER LEAVE THE SOCKET GROUP
         if (selectedGroup) {
             console.log("MAKING USER LEAVE GROUP");
-            globalSocket.emit("leave-group", { userId: loggedInUser._id, groupId: selectedGroup._id })
+            globalSocket?.emit("leave-group", { userId: loggedInUser._id, groupId: selectedGroup._id })
         }
 
         dispatch(setSelectedUser(e))

@@ -90,6 +90,7 @@ const SendMessage = () => {
         globalSocket?.on("newMessage", (newMessage) => {
 
             console.log("INSIDE SOCKET SOLO");
+            console.log(newMessage);
 
             if (selectedUser?._id == newMessage?.senderId && chatType == "solo" && newMessage.hasOwnProperty("receiverId")) {
                 console.log("USER VIWING THE CHAT OF SENDING USER SO DON'T SAVE IT AS NOTIFICATION");
@@ -138,7 +139,7 @@ const SendMessage = () => {
                     onKeyUp={(e) => { e.key == "Enter" ? handleSendMessage() : null }}
                     className='w-full p-2 text-black rounded-lg border-none outline-none' type="text" placeholder='Type a message here...' />
 
-                <img onClick={() => handleSendMessage()} className='w-[30px] mr-2' src={send} alt="" srcset="" />
+                <img onClick={() => handleSendMessage()} className='w-[30px] mr-2' src={send} alt="" srcSet="" />
 
             </div>
 

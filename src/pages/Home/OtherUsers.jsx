@@ -3,10 +3,11 @@ import Navbar from './Navbar'
 import FriendsChat from './LEFT_SIDE/FriendsChat'
 import GroupChat from './LEFT_SIDE/GroupChat'
 import SearchBook from './LEFT_SIDE/SearchBook'
+import OnlineUsers from './LEFT_SIDE/OnlineUsers'
 
 const OtherUsers = () => {
 
-    const [show, setShow] = useState({ friendChat: true, groupChat: false, searchBook: false })
+    const [show, setShow] = useState({ friendChat: true, groupChat: false, onlineFriend:false, searchBook: false })
 
 
     return (
@@ -21,6 +22,8 @@ const OtherUsers = () => {
                 {show.friendChat && <FriendsChat />}
 
                 {show.groupChat && <GroupChat />}
+
+                {show.onlineFriend && <OnlineUsers />}
 
                 {show.searchBook && <SearchBook />}
 

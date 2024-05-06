@@ -27,16 +27,36 @@ const SignUp = () => {
 
 
     const onSubmit = async (data) => {
-        setSignUpLoader(true)
-        const res = await axios.post(`/user/register`, data)
-        console.log(res);
 
-        if (res.status == 200) {
-            dispatch(setLoggedInUser(res.data.data))
-        } else {
-            toast(res?.data.message)
+        setSignUpLoader(true)
+
+        if (data.gender == null) {
+            toast("Pls Choose Gender")
+            return;
         }
-        setSignUpLoader(false)
+
+        try {
+
+            const res = await axios.post(`/user/register`, data)
+            console.log(res);
+
+            if (res.status == 200) {
+                dispatch(setLoggedInUser(res.data.data))
+            } else {
+                setSignUpLoader(false)
+                toast(res?.data.message || "SIGN UP ERROR")
+            }
+
+
+        } catch (error) {
+
+            toast(error?.response?.data?.message);
+            setSignUpLoader(false)
+        }
+
+
+
+
     }
 
     return (

@@ -7,6 +7,8 @@ import { setSelectedUser } from '../../redux/userSlice'
 import typingLoaderImg from "../../assets/TypingLoader.svg"
 import dayjs from "dayjs"
 import loader from "../../assets/TypingLoader.svg"
+import MessageBox from '../../Component/MessageBox'
+import { toast } from 'react-toastify'
 
 const Messages = () => {
 
@@ -20,7 +22,6 @@ const Messages = () => {
 
     const [loader, setLoader] = useState(false)
 
-    const lastDivref = useRef(null)
     const typingLoaderDivref = useRef(null)
 
     // GET SOLO CHAT
@@ -51,17 +52,26 @@ const Messages = () => {
     const getGroupMessages = async () => {
 
         dispatch(setSelectedUser(null))
+        setLoader(true)
 
-        let { data } = await axios.post(`/group/getGroupMessages`, {
-            groupId: selectedGroup._id
-        })
+        try {
 
-        console.log(data);
+            let res = await axios.post(`/group/getGroupMessages`, {
+                groupId: selectedGroup._id
+            })
 
-        if (data?.data) {
-            dispatch(setMessages(data?.data?.groupMessages))
-        } else {
+            if (res.status == 200) {
+                dispatch(setMessages(res.data?.data?.groupMessages))
+                setLoader(false)
+            } else {
+                dispatch(setMessages(null))
+                setLoader(false)
+            }
+
+        } catch (error) {
+            setLoader(false)
             dispatch(setMessages(null))
+            toast("Error Occured")
         }
 
     }
@@ -86,10 +96,6 @@ const Messages = () => {
     }, [selectedGroup])
 
     useEffect(() => {
-        lastDivref.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages])
-
-    useEffect(() => {
         typingLoaderDivref.current?.scrollIntoView({ behavior: "smooth" });
     }, [typingLoader])
 
@@ -101,26 +107,7 @@ const Messages = () => {
                 {messages?.length > 0
                     ?
                     messages.map((e) => (
-                        <div
-                            ref={lastDivref}
-                            key={e._id}
-                            className={`w-full flex ${loggedInUserId == (selectedGroup ? e.senderId._id : e.senderId) ? "justify-end" : "justify-start"}`} >
-
-                            <p className={`flex flex-col w-[48%] bg-slate-900 rounded-xl ${loggedInUserId == (selectedGroup ? e.senderId._id : e.senderId) ? "rounded-br-none" : "rounded-bl-none"} p-2`}>
-
-                                <span className='text-[10px] text-slate-400 capitalize'>
-                                    {selectedGroup && e.senderId.userName}
-                                </span>
-
-                                <span>{e.message}</span>
-
-                                <span className='text-[10px] text-end text-slate-400'>
-                                    {dayjs(e.createdAt).format("hh:mm a")}
-                                </span>
-
-                            </p>
-
-                        </div>
+                        <MessageBox key={e._Id} message={e} />
                     ))
                     :
                     <span className='text-center opacity-[0.2]'>NO MESSAGES</span>
