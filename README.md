@@ -62,7 +62,7 @@ Chat app is a messaging web application where a user can have a conversation wit
 
 # Getting Started 💻
 
-**To run the Costco clone project locally, follow these steps :**
+**To run the Chat App clone project locally, follow these steps :**
 
 1. Clone the repository to your local machine.
 2. Install dependencies using npm.
