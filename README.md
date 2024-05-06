@@ -36,6 +36,8 @@ Chat app is a messaging web application where a user can have a conversation wit
 
 # Images 🖼️
 
+![Chat_2 _GIF](https://github.com/Arya-Kishan/MERN_CHAT_CLIENT/assets/133795523/03c02308-f21b-4811-a631-3831a4d992bf)
+
 1. Login Page
 
 ![Screenshot 2024-05-05 110151](https://github.com/Arya-Kishan/MERN_CHAT_CLIENT/assets/133795523/ce59dbc7-898a-47df-b155-81ee2f8ca887)
