@@ -2,7 +2,6 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 import React, { useEffect, useRef, useState } from 'react'
 import dayjs from 'dayjs'
-import addUserWhite from '../../../assets/addUserWhite.svg'
 import { toast } from 'react-toastify';
 import { addFriends, searchUserAsync, setSearchUserResult } from '../../../redux/userSlice';
 import allUser from "../../../assets/allUser.svg"

@@ -28,6 +28,7 @@ const SendMessage = () => {
                 receiverId: selectedUser._id,
                 senderMessage: inputRef.current.value
             })
+            
 
             dispatch(setMessages([...messages || [], data.data]))
 

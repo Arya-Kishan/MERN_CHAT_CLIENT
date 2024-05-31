@@ -5,9 +5,12 @@ import dayjs from "dayjs"
 import group from "../../assets/group.svg";
 import relativeTime from "dayjs/plugin/relativeTime"
 import UserNameBox from '../../Component/UserNameBox'
+import SelectMembers from '../../Helper/SelectMembers';
 dayjs.extend(relativeTime)
 
 const ChatHeading = () => {
+
+    const [group, setGroup] = useState(null)
 
     const { selectedUser } = useSelector(store => store.user)
     const { loggedInUser } = useSelector(store => store.user)
@@ -16,6 +19,12 @@ const ChatHeading = () => {
     const { selectedGroup } = useSelector(store => store.group)
 
     const [showMembers, setShowMembers] = useState(false)
+    const [showSelectedComp, setShowSelectedComp] = useState(false)
+
+    const addMemberInGroup = (group) => {
+        setShowSelectedComp(true)
+        setGroup(group)
+    }
 
     return (
         <>
@@ -52,18 +61,30 @@ const ChatHeading = () => {
 
             {showMembers && <div onClick={() => setShowMembers(false)} className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gradient-to-r from-black z-10'>
 
-                <div className='w-[80%] md:w-[50%] h-[50vh] flex flex-col gap-4 bg-slate-800 p-4'>
+                <div onClick={(e) => e.stopPropagation()} className='w-[80%] md:w-[50%] h-[50vh] flex flex-col gap-4 bg-slate-800 p-4'>
 
                     <h1 className='font-bold text-2xl text-center'>Members</h1>
 
                     {selectedGroup
                         ?
-                        <div className='flex flex-col gap-4'>
+                        <div className='flex flex-col gap-4 overflow-auto'>
 
-                            <div className='flex gap-2'><UserNameBox user={selectedGroup?.groupCreatedBy} /><span>OWNER</span></div>
+                            <div className='flex gap-2 bg-red-800 items-center justify-between'>
+
+                                <div className='flex items-center'>
+                                    <img className='w-[50px] h-[50px]' src={selectedGroup?.groupCreatedBy.profilePic} alt="" srcSet="" />
+
+                                    <span className='text-xl'>{selectedGroup?.groupCreatedBy.userName}</span>
+                                </div>
+
+                                <span>OWNER</span>
+
+                            </div>
 
                             {selectedGroup?.groupMembers.map((e) => (<UserNameBox key={e._id} user={e} />))
                             }
+
+                            <button onClick={() => addMemberInGroup(selectedGroup)} className='p-2 bg-gray-500 rounded-md hover:bg-gray-400'>ADD MEMBERS</button>
 
                         </div>
                         :
@@ -78,6 +99,8 @@ const ChatHeading = () => {
                 </div>
 
             </div>}
+
+            {showSelectedComp && <SelectMembers group={group} hide={setShowSelectedComp} />}
 
         </>
     )
